@@ -19,7 +19,6 @@
 *::after {
   animation: none !important;
   transition: none !important;
-  transform: none !important;
   will-change: auto !important;
   scroll-behavior: auto !important;
   background-image: none !important;
@@ -36,4 +35,24 @@
 img, video {
   animation: none !important;
   transition: none !important;
+}
+
+/* Keep layout transforms intact for centered fixed headers and menus */
+.header-content,
+.header-content *,
+.tabs-dropdown,
+.tabs-dropdown * {
+  transform: initial !important;
+}
+
+/* Hide language toggles so the UI stays English-only */
+.language-switcher,
+.tabs-language-switcher {
+  display: none !important;
+}
+
+/* Remove the upload-page brand/title block and fixed logo image */
+.header .title,
+.logo.logo--fixed.logo--normal.logo--hover-enabled {
+  display: none !important;
 }
