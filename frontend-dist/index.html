@@ -94,6 +94,20 @@ addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-
 addClasses(".el-select__wrapper", ["rounded-xl", "border-slate-700", "bg-slate-950", "text-slate-100"]);
 addClasses(".el-pagination, .pagination-container", ["text-slate-300"]);
 removeDocs();
+
+const replaceCameraIcon = () => {
+document.querySelectorAll("svg").forEach((svg) => {
+const path = svg.querySelector("path");
+if (path) {
+const d = path.getAttribute("d") || "";
+if (d.startsWith("M160 224a64")) {
+svg.setAttribute("viewBox", "0 0 1024 1024");
+path.setAttribute("d", "M480 480V128a32 32 0 0 1 64 0v352h352a32 32 0 0 1 0 64H544v352a32 32 0 0 1-64 0V544H128a32 32 0 0 1 0-64h352z");
+}
+}
+});
+};
+replaceCameraIcon();
 };
 
 let frame = 0;
