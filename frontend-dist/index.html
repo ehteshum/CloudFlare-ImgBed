@@ -1,1 +1,125 @@
-<!doctype html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/static/media/logo.png"><link rel="apple-touch-icon" href="/static/media/logo.png"><link rel="mask-icon" href="/static/media/logo.png" color="#f4b400"><meta name="description" content="Sanyue ImgHub - A modern file hosting platform"><meta name="keywords" content="Sanyue, ImgHub, file hosting, image hosting, cloud storage"><meta name="author" content="SanyueQi"><title>Sanyue ImgHub</title><script>try{localStorage.setItem("app-locale","en");document.documentElement.lang="en"}catch(e){}</script><script>!function(){const e=()=>{document.querySelectorAll(".el-dropdown-menu__item").forEach((t=>{const n=(t.textContent||"").replace(/\s+/g," ").trim();"Documentation"===n&&t.remove()}))};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e,{once:!0}):e();new MutationObserver(e).observe(document.documentElement,{childList:!0,subtree:!0})}();</script><script defer="defer" src="/js/chunk-vendors.82c104b1.js"></script><script defer="defer" src="/js/app.07882f26.js"></script><link href="/css/chunk-vendors.f9cd4701.css" rel="stylesheet"><link href="/css/app.75711fde.css" rel="stylesheet"><link href="/css/override-remove-animations.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but sanyue_imghub doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+<!doctype html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="/static/media/logo.png">
+<link rel="apple-touch-icon" href="/static/media/logo.png">
+<link rel="mask-icon" href="/static/media/logo.png" color="#f4b400">
+<meta name="description" content="Sanyue ImgHub - A modern file hosting platform">
+<meta name="keywords" content="Sanyue, ImgHub, file hosting, image hosting, cloud storage">
+<meta name="author" content="SanyueQi">
+<title>Sanyue ImgHub</title>
+<script>
+tailwind = {
+config: {
+corePlugins: { preflight: false },
+darkMode: 'class',
+theme: {
+extend: {
+colors: {
+surface: {
+900: '#0f172a',
+950: '#020617'
+}
+}
+}
+}
+}
+};
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+try {
+localStorage.setItem("app-locale", "en");
+document.documentElement.lang = "en";
+} catch (e) {}
+</script>
+<script>
+!function() {
+const removeDocs = () => {
+document.querySelectorAll(".el-dropdown-menu__item").forEach((item) => {
+const text = (item.textContent || "").replace(/\s+/g, " ").trim();
+if (text === "Documentation") {
+item.remove();
+}
+});
+};
+
+const addClasses = (selector, classes) => {
+document.querySelectorAll(selector).forEach((element) => {
+element.classList.add(...classes);
+});
+};
+
+const applyTailwindShell = () => {
+document.documentElement.classList.add("bg-slate-950");
+document.body.classList.add("bg-slate-950", "text-slate-100", "antialiased");
+const appRoot = document.getElementById("app");
+if (appRoot) {
+appRoot.classList.add("min-h-screen", "bg-slate-950", "text-slate-100");
+}
+
+addClasses(".container", ["min-h-screen", "bg-slate-950", "text-slate-100"]);
+addClasses(".sidebar-container", ["border", "border-slate-800", "bg-slate-900/90", "backdrop-blur-none", "shadow-none"]);
+addClasses(".header-content", ["border", "border-slate-800", "bg-slate-900/90", "shadow-none"]);
+addClasses(".status-panel", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-6", "px-4", "py-6"]);
+addClasses(".upload-settings", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-6", "px-4", "py-6"]);
+addClasses(".overview-cards", ["grid", "gap-4", "sm:grid-cols-2", "xl:grid-cols-3"]);
+addClasses(".overview-card", ["rounded-2xl", "border", "border-slate-800", "bg-slate-900/80", "p-5"]);
+addClasses(".charts-section", ["grid", "gap-4", "xl:grid-cols-2"]);
+addClasses(".chart-card", ["rounded-2xl", "border", "border-slate-800", "bg-slate-900/80", "p-5"]);
+addClasses(".actions-section", ["space-y-4"]);
+addClasses(".action-card", ["rounded-2xl", "border", "border-slate-800", "bg-slate-900/80", "p-5"]);
+addClasses(".file-info-section", ["grid", "gap-4", "xl:grid-cols-2"]);
+addClasses(".file-info-card", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900/80"]);
+addClasses(".main-table", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900/80"]);
+addClasses(".page-header", ["flex", "flex-wrap", "items-center", "justify-between", "gap-3"]);
+addClasses(".first-title", ["text-xl", "font-semibold", "tracking-tight", "text-slate-100"]);
+addClasses(".header-actions", ["flex", "flex-wrap", "items-center", "gap-3"]);
+addClasses(".group-header", ["flex", "flex-wrap", "items-center", "justify-between", "gap-3"]);
+addClasses(".group-title", ["flex", "items-center", "gap-2", "text-base", "font-semibold", "text-slate-100"]);
+addClasses(".channel-group", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900/70"]);
+addClasses(".channel-card", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900/80"]);
+addClasses(".card-header", ["flex", "items-center", "justify-between", "gap-3"]);
+addClasses(".card-body", ["text-left"]);
+addClasses(".card-actions", ["border-t", "border-slate-800", "bg-slate-900/80"]);
+addClasses(".card-header", ["flex", "items-center", "justify-between", "gap-3"]);
+addClasses(".el-card", ["rounded-2xl", "border", "border-slate-800", "bg-slate-900/80"]);
+addClasses(".el-dropdown-menu", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900"]);
+addClasses(".el-dropdown-menu__item", ["px-3", "py-2", "text-sm", "text-slate-200"]);
+addClasses(".el-button", ["rounded-xl", "border-slate-700", "bg-slate-800", "text-slate-100"]);
+addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-xl", "border-slate-700", "bg-slate-950", "text-slate-100"]);
+addClasses(".el-select__wrapper", ["rounded-xl", "border-slate-700", "bg-slate-950", "text-slate-100"]);
+addClasses(".el-pagination, .pagination-container", ["text-slate-300"]);
+removeDocs();
+};
+
+let frame = 0;
+const schedule = () => {
+cancelAnimationFrame(frame);
+frame = requestAnimationFrame(applyTailwindShell);
+};
+
+if (document.readyState === "loading") {
+document.addEventListener("DOMContentLoaded", schedule, { once: true });
+} else {
+schedule();
+}
+
+window.addEventListener("load", schedule);
+new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+}();
+</script>
+<script defer="defer" src="/js/chunk-vendors.82c104b1.js"></script>
+<script defer="defer" src="/js/app.07882f26.js"></script>
+<link href="/css/chunk-vendors.f9cd4701.css" rel="stylesheet">
+<link href="/css/app.75711fde.css" rel="stylesheet">
+<link href="/css/override-remove-animations.css" rel="stylesheet">
+</head>
+<body>
+<noscript><strong>We're sorry but sanyue_imghub doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+<div id="app"></div>
+</body>
+</html>
