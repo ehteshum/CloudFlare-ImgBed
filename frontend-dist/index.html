@@ -48,6 +48,9 @@ item.remove();
 };
 
 const removeThemeOption = () => {
+document.querySelectorAll("#themeToggle, .toggle-dark-button").forEach((btn) => {
+btn.remove();
+});
 document.querySelectorAll(".el-dropdown-menu__item").forEach((item) => {
 const text = (item.textContent || "").replace(/\s+/g, " ").trim();
 if (["Light Mode", "Dark Mode", "Auto Mode", "浅色模式", "深色模式", "自动模式"].includes(text)) {

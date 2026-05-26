@@ -181,6 +181,8 @@ li.el-dropdown-menu__item:has(svg[data-icon="book"], svg.fa-book) {
 }
 
 /* Hide theme switcher option from dropdown menu and anywhere else */
+#themeToggle,
+.toggle-dark-button,
 li.el-dropdown-menu__item:has(svg[data-icon="sun"], svg.fa-sun),
 li.el-dropdown-menu__item:has(svg[data-icon="moon"], svg.fa-moon),
 li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
