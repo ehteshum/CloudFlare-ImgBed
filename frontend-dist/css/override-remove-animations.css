@@ -179,3 +179,11 @@ li.el-dropdown-menu__item:has(svg[data-icon="book"], svg.fa-book) {
 .logo.logo--fixed.logo--normal.logo--hover-enabled {
   display: none !important;
 }
+
+/* Hide theme switcher option from dropdown menu and anywhere else */
+li.el-dropdown-menu__item:has(svg[data-icon="sun"], svg.fa-sun),
+li.el-dropdown-menu__item:has(svg[data-icon="moon"], svg.fa-moon),
+li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
+  display: none !important;
+}
+

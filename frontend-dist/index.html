@@ -47,6 +47,15 @@ item.remove();
 });
 };
 
+const removeThemeOption = () => {
+document.querySelectorAll(".el-dropdown-menu__item").forEach((item) => {
+const text = (item.textContent || "").replace(/\s+/g, " ").trim();
+if (["Light Mode", "Dark Mode", "Auto Mode", "浅色模式", "深色模式", "自动模式"].includes(text)) {
+item.remove();
+}
+});
+};
+
 const addClasses = (selector, classes) => {
 document.querySelectorAll(selector).forEach((element) => {
 element.classList.add(...classes);
@@ -94,6 +103,7 @@ addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-
 addClasses(".el-select__wrapper", ["rounded-xl", "border-slate-700", "bg-slate-950", "text-slate-100"]);
 addClasses(".el-pagination, .pagination-container", ["text-slate-300"]);
 removeDocs();
+removeThemeOption();
 
 const replaceCameraIcon = () => {
 document.querySelectorAll("svg").forEach((svg) => {
