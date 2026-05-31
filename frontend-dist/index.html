@@ -75,35 +75,35 @@ appRoot.classList.add("min-h-screen", "bg-slate-950", "text-slate-100");
 
 addClasses(".container", ["min-h-screen", "bg-slate-950", "text-slate-100", "font-sans"]);
 addClasses(".sidebar-container", ["border-r", "border-slate-800/50", "bg-slate-950", "backdrop-blur-none", "shadow-none"]);
-addClasses(".header-content", ["border-b", "border-slate-800/50", "bg-slate-950", "shadow-sm"]);
+addClasses(".header-content", ["sticky", "top-0", "z-50", "border-b", "border-slate-800/50", "bg-slate-950/70", "backdrop-blur-xl", "shadow-sm", "transition-all"]);
 addClasses(".status-panel", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".upload-settings", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".overview-cards", ["grid", "gap-6", "sm:grid-cols-2", "xl:grid-cols-3"]);
-addClasses(".overview-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8"]);
+addClasses(".overview-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50"]);
 addClasses(".charts-section", ["grid", "gap-6", "xl:grid-cols-2"]);
-addClasses(".chart-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8"]);
+addClasses(".chart-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50"]);
 addClasses(".actions-section", ["space-y-6"]);
-addClasses(".action-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8"]);
+addClasses(".action-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50"]);
 addClasses(".file-info-section", ["grid", "gap-6", "xl:grid-cols-2"]);
-addClasses(".file-info-card", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-sm"]);
+addClasses(".file-info-card", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg"]);
 addClasses(".main-table", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-sm"]);
 addClasses(".page-header", ["flex", "flex-wrap", "items-center", "justify-between", "gap-6"]);
 addClasses(".first-title", ["text-xl", "font-medium", "tracking-tight", "text-slate-100"]);
 addClasses(".header-actions", ["flex", "flex-wrap", "items-center", "gap-6"]);
 addClasses(".group-header", ["flex", "flex-wrap", "items-center", "justify-between", "gap-6"]);
 addClasses(".group-title", ["flex", "items-center", "gap-2", "text-base", "font-medium", "text-slate-100"]);
-addClasses(".channel-group", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-6"]);
-addClasses(".channel-card", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-md", "p-6"]);
+addClasses(".channel-group", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-6", "transition-all", "duration-300"]);
+addClasses(".channel-card", ["overflow-hidden", "rounded-2xl", "border-none", "bg-slate-900", "shadow-md", "p-6", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg"]);
 addClasses(".card-header", ["flex", "items-center", "justify-between", "gap-6"]);
 addClasses(".card-body", ["text-left"]);
 addClasses(".card-actions", ["border-t", "border-slate-800/50", "bg-slate-900"]);
-addClasses(".el-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm"]);
+addClasses(".el-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "transition-all", "duration-300"]);
 addClasses(".el-dropdown-menu", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900", "shadow-md"]);
-addClasses(".el-dropdown-menu__item", ["px-3", "py-2", "text-sm", "text-slate-300", "font-medium"]);
-addClasses(".el-button", ["rounded-xl", "border-none", "bg-slate-800", "text-slate-200", "font-medium", "hover:bg-slate-700"]);
+addClasses(".el-dropdown-menu__item", ["px-3", "py-2", "text-sm", "text-slate-300", "font-medium", "transition-colors", "hover:bg-slate-800"]);
+addClasses(".el-button", ["rounded-xl", "border-none", "bg-slate-800", "text-slate-200", "font-medium", "hover:bg-slate-700", "focus:outline-none", "focus:ring-2", "focus:ring-[#f4b400]/50", "transition-all", "duration-300"]);
 addClasses(".el-button--primary", ["!bg-[#f4b400]", "!text-black", "shadow-sm", "font-medium", "hover:!bg-[#e0a600]"]);
-addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-xl", "border-none", "bg-slate-950", "text-slate-100", "shadow-none", "ring-1", "ring-slate-800"]);
-addClasses(".el-select__wrapper", ["rounded-xl", "border-none", "bg-slate-950", "text-slate-100", "shadow-none", "ring-1", "ring-slate-800"]);
+addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-xl", "border-none", "bg-slate-950", "text-slate-100", "shadow-none", "ring-1", "ring-slate-800", "focus-within:ring-2", "focus-within:ring-[#f4b400]/50", "transition-all", "duration-300"]);
+addClasses(".el-select__wrapper", ["rounded-xl", "border-none", "bg-slate-950", "text-slate-100", "shadow-none", "ring-1", "ring-slate-800", "focus-within:ring-2", "focus-within:ring-[#f4b400]/50", "transition-all", "duration-300"]);
 addClasses(".el-pagination, .pagination-container", ["text-slate-400"]);
 addClasses(".el-upload-dragger", ["rounded-2xl", "border-2", "border-dashed", "border-slate-700", "bg-slate-900/50", "hover:bg-slate-800/80", "transition-colors", "duration-200"]);
 removeDocs();
@@ -145,6 +145,23 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 <link href="/css/chunk-vendors.f9cd4701.css" rel="stylesheet">
 <link href="/css/app.75711fde.css" rel="stylesheet">
 <link href="/css/override-remove-animations.css" rel="stylesheet">
+<style>
+/* 4. Hide Clunky Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* 5. Minimalist Empty States & Skeletons */
+.el-empty__description p { color: #94a3b8 !important; font-weight: 500; }
+.el-loading-mask { background-color: rgba(2, 6, 23, 0.7) !important; backdrop-filter: blur(4px); }
+.el-loading-spinner .path { stroke: #f4b400; }
+
+/* 6. Focused Login Form Layout */
+.login-container .el-card { border: none !important; background: transparent !important; box-shadow: none !important; }
+.login-container .el-card__header { border-bottom: none; text-align: center; }
+.login-container .el-input__wrapper { background: rgba(15, 23, 42, 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; }
+</style>
 </head>
 <body>
 <noscript><strong>We're sorry but sanyue_imghub doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
