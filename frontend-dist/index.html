@@ -79,7 +79,7 @@ addClasses(".header-content", ["sticky", "top-0", "z-50", "border-b", "border-sl
 addClasses(".status-panel", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".upload-settings", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".overview-cards", ["grid", "gap-6", "sm:grid-cols-2", "xl:grid-cols-3"]);
-addClasses(".overview-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50"]);
+addClasses(".overview-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50", "flex", "flex-col", "justify-between"]);
 addClasses(".charts-section", ["grid", "gap-6", "xl:grid-cols-2"]);
 addClasses(".chart-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "p-8", "transition-all", "duration-300", "ease-out", "hover:-translate-y-1", "hover:shadow-lg", "hover:shadow-black/50"]);
 addClasses(".actions-section", ["space-y-6"]);
@@ -161,6 +161,28 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .login-container .el-card { border: none !important; background: transparent !important; box-shadow: none !important; }
 .login-container .el-card__header { border-bottom: none; text-align: center; }
 .login-container .el-input__wrapper { background: rgba(15, 23, 42, 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; }
+
+/* 7. Modern Data Tables */
+.el-table { background: transparent !important; --el-table-border-color: transparent !important; --el-table-row-hover-bg-color: rgba(30, 41, 59, 0.5) !important; --el-table-header-bg-color: rgba(15, 23, 42, 0.8) !important; }
+.el-table th.el-table__cell { background: var(--el-table-header-bg-color) !important; color: #cbd5e1; font-weight: 600; border-bottom: 1px solid rgba(51, 65, 85, 0.5) !important; }
+.el-table td.el-table__cell { border-bottom: 1px solid rgba(51, 65, 85, 0.5) !important; color: #f1f5f9; padding: 16px 0 !important; }
+.el-table__inner-wrapper::before { display: none; } /* Removes the heavy bottom border of tables */
+.el-pagination { margin-top: 1.5rem; justify-content: flex-end; }
+
+/* 8. Pill-shaped Sidebar Navigation */
+.el-menu { background: transparent !important; border-right: none !important; }
+.el-menu-item, .el-sub-menu__title { border-radius: 12px; margin: 4px 12px; color: #94a3b8 !important; transition: all 0.2s ease-out; }
+.el-menu-item.is-active { background: rgba(244, 180, 0, 0.1) !important; color: #f4b400 !important; font-weight: 600; }
+.el-menu-item:hover, .el-sub-menu__title:hover { background: rgba(30, 41, 59, 0.8) !important; color: #f8fafc !important; }
+
+/* 9. Dashboard Typography Emphasis */
+.stat-value { font-size: 2.25rem !important; line-height: 2.5rem !important; font-weight: 700 !important; letter-spacing: -0.025em !important; color: #f8fafc !important; }
+.stat-title { font-size: 0.875rem !important; font-weight: 500 !important; color: #94a3b8 !important; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* 10. Dashboard Animated Upload Area */
+.el-upload-dragger { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; padding: 3rem !important; }
+.el-upload-dragger:hover { border-color: #f4b400 !important; transform: scale(1.01); background-color: rgba(15, 23, 42, 0.8) !important; }
+.el-upload__text em { color: #f4b400 !important; font-weight: 600; }
 </style>
 </head>
 <body>
