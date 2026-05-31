@@ -10,7 +10,7 @@
 <meta name="description" content="Ishmam - A modern file hosting platform">
 <meta name="keywords" content="Ishmam, file hosting, image hosting, cloud storage">
 <meta name="author" content="SanyueQi">
-<meta name="theme-color" content="#020617">
+<meta name="theme-color" content="#1a1815">
 <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
 <title>Ishmam</title>
 <script>
@@ -22,8 +22,21 @@ theme: {
 extend: {
 colors: {
 surface: {
-900: '#0f172a',
-950: '#020617'
+900: 'oklch(0.20 0.015 85)',
+950: 'oklch(0.15 0.012 85)'
+},
+slate: {
+50: 'oklch(0.98 0.005 85)',
+100: 'oklch(0.95 0.01 85)',
+200: 'oklch(0.88 0.015 85)',
+300: 'oklch(0.78 0.02 85)',
+400: 'oklch(0.68 0.02 85)',
+500: 'oklch(0.58 0.02 85)',
+600: 'oklch(0.48 0.02 85)',
+700: 'oklch(0.38 0.02 85)',
+800: 'oklch(0.28 0.02 85)',
+900: 'oklch(0.20 0.015 85)',
+950: 'oklch(0.15 0.012 85)',
 }
 }
 }
@@ -151,23 +164,23 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 /* 4. Hide Clunky Scrollbars */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #475569; }
+::-webkit-scrollbar-thumb { background: oklch(0.28 0.02 85); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: oklch(0.38 0.02 85); }
 
 /* 5. Minimalist Empty States & Skeletons */
 .el-empty__description p { color: #94a3b8 !important; font-weight: 500; }
-.el-loading-mask { background-color: rgba(2, 6, 23, 0.7) !important; backdrop-filter: blur(4px); }
+.el-loading-mask { background-color: oklch(0.15 0.012 85 / 0.7) !important; backdrop-filter: blur(4px); }
 .el-loading-spinner .path { stroke: #f4b400; }
 
 /* 6. Focused Login Form Layout */
 .login-container .el-card { border: none !important; background: transparent !important; box-shadow: none !important; }
 .login-container .el-card__header { border-bottom: none; text-align: center; }
-.login-container .el-input__wrapper { background: rgba(15, 23, 42, 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; }
+.login-container .el-input__wrapper { background: oklch(0.20 0.015 85 / 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; }
 
 /* 7. Modern Data Tables */
-.el-table { background: transparent !important; --el-table-border-color: transparent !important; --el-table-row-hover-bg-color: rgba(30, 41, 59, 0.5) !important; --el-table-header-bg-color: rgba(15, 23, 42, 0.8) !important; }
-.el-table th.el-table__cell { background: var(--el-table-header-bg-color) !important; color: #cbd5e1; font-weight: 600; border-bottom: 1px solid rgba(51, 65, 85, 0.5) !important; }
-.el-table td.el-table__cell { border-bottom: 1px solid rgba(51, 65, 85, 0.5) !important; color: #f1f5f9; padding: 16px 0 !important; }
+.el-table { background: transparent !important; --el-table-border-color: transparent !important; --el-table-row-hover-bg-color: oklch(0.28 0.02 85 / 0.3) !important; --el-table-header-bg-color: oklch(0.20 0.015 85 / 0.8) !important; }
+.el-table th.el-table__cell { background: var(--el-table-header-bg-color) !important; color: oklch(0.88 0.015 85); font-weight: 600; border-bottom: 1px solid oklch(0.28 0.02 85 / 0.5) !important; }
+.el-table td.el-table__cell { border-bottom: 1px solid oklch(0.28 0.02 85 / 0.5) !important; color: oklch(0.95 0.01 85); padding: 16px 0 !important; }
 .el-table__inner-wrapper::before { display: none; } /* Removes the heavy bottom border of tables */
 .el-pagination { margin-top: 1.5rem; justify-content: flex-end; }
 
@@ -175,7 +188,7 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .el-menu { background: transparent !important; border-right: none !important; }
 .el-menu-item, .el-sub-menu__title { border-radius: 12px; margin: 4px 12px; color: #94a3b8 !important; transition: all 0.2s ease-out; }
 .el-menu-item.is-active { background: rgba(244, 180, 0, 0.1) !important; color: #f4b400 !important; font-weight: 600; }
-.el-menu-item:hover, .el-sub-menu__title:hover { background: rgba(30, 41, 59, 0.8) !important; color: #f8fafc !important; }
+.el-menu-item:hover, .el-sub-menu__title:hover { background: oklch(0.28 0.02 85 / 0.6) !important; color: oklch(0.98 0.005 85) !important; }
 
 /* 9. Dashboard Typography Emphasis */
 .stat-value { font-size: 2.25rem !important; line-height: 2.5rem !important; font-weight: 700 !important; letter-spacing: -0.025em !important; color: #f8fafc !important; }
@@ -183,7 +196,7 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 
 /* 10. Dashboard Animated Upload Area */
 .el-upload-dragger { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; padding: 3rem !important; }
-.el-upload-dragger:hover { border-color: #f4b400 !important; transform: scale(1.01); background-color: rgba(15, 23, 42, 0.8) !important; }
+.el-upload-dragger:hover { border-color: #f4b400 !important; transform: scale(1.01); background-color: oklch(0.20 0.015 85 / 0.8) !important; }
 .el-upload__text em { color: #f4b400 !important; font-weight: 600; }
 
 /* 11. Performance & Crisp Rendering */
@@ -196,7 +209,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-fo
 <div id="app">
   <style>
     /* Inline preloader styling to show instantly before Vue mounts */
-    .app-preloader-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background-color: #020617; position: fixed; top: 0; left: 0; z-index: 9999; }
+    .app-preloader-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background-color: oklch(0.15 0.012 85); position: fixed; top: 0; left: 0; z-index: 9999; }
     .app-preloader-spinner { width: 44px; height: 44px; border: 3px solid rgba(244, 180, 0, 0.1); border-top-color: #f4b400; border-radius: 50%; animation: preloader-spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
     @keyframes preloader-spin { to { transform: rotate(360deg); } }
   </style>
