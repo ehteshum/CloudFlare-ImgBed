@@ -145,16 +145,24 @@ const moveToolbar = () => {
 const header = document.querySelector(".header") || document.querySelector(".page-header") || document.querySelector(".header-content");
 const toolbar = document.querySelector(".toolbar");
 const toolbarManage = document.querySelector(".toolbar-manage");
-if (header && toolbar && toolbar.parentElement !== header) {
-header.appendChild(toolbar);
-toolbar.classList.add("navbar-integrated-toolbar");
-}
-if (toolbarManage) {
-toolbarManage.style.display = "none";
-}
-// Force flex layout on header if it doesn't have it
+
 if (header && !header.classList.contains("flex")) {
 header.classList.add("flex", "items-center", "justify-between", "w-full");
+}
+
+if (header && toolbarManage) {
+let wrapper = header.querySelector(".hamburger-wrapper");
+if (!wrapper) {
+wrapper = document.createElement("div");
+wrapper.className = "hamburger-wrapper";
+header.appendChild(wrapper);
+}
+
+if (toolbarManage.parentElement !== wrapper) wrapper.appendChild(toolbarManage);
+if (toolbar && toolbar.parentElement !== wrapper) {
+wrapper.appendChild(toolbar);
+toolbar.classList.add("navbar-integrated-toolbar");
+}
 }
 };
 moveToolbar();
@@ -246,35 +254,67 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 .el-overlay, .el-dialog, .el-dropdown-menu { will-change: transform, opacity; }
 
-/* 13. Move Toolbar to Navbar */
+/* 13. Top-Right Hamburger Dropdown Integration */
+.hamburger-wrapper {
+  position: relative !important;
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+}
+
+.toolbar-manage {
+  position: relative !important;
+  bottom: auto !important;
+  right: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .navbar-integrated-toolbar {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 12px !important;
-    height: auto !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    bottom: auto !important;
-    right: auto !important;
+  position: absolute !important;
+  top: calc(100% + 12px) !important;
+  right: 0 !important;
+  bottom: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 12px !important;
+  padding-top: 4px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none;
 }
 
-.navbar-integrated-toolbar > *,
-.navbar-integrated-toolbar .el-tooltip__trigger,
-.navbar-integrated-toolbar .toolbar-button,
+.navbar-integrated-toolbar > div,
+.navbar-integrated-toolbar .compress-button,
 .navbar-integrated-toolbar .upload-method-button,
-.navbar-integrated-toolbar .upload-folder {
-    position: static !important;
-    transform: none !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    margin: 0 !important;
-    flex-shrink: 0 !important;
+.navbar-integrated-toolbar .upload-folder,
+.navbar-integrated-toolbar .info-container,
+.navbar-integrated-toolbar .toggle-dark-button,
+.navbar-integrated-toolbar .toolbar-button {
+  position: relative !important;
+  bottom: auto !important;
+  right: auto !important;
+  transform: translateY(-8px) scale(0.96) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin: 0 !important;
 }
 
-.toolbar-manage { display: none !important; }
+.navbar-integrated-toolbar > div.active,
+.navbar-integrated-toolbar .compress-button.active,
+.navbar-integrated-toolbar .upload-method-button.active,
+.navbar-integrated-toolbar .upload-folder.active,
+.navbar-integrated-toolbar .info-container.active,
+.navbar-integrated-toolbar .toggle-dark-button.active,
+.navbar-integrated-toolbar .toolbar-button.active {
+  transform: translateY(0) scale(1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
 </style>
 </head>
 <body>
