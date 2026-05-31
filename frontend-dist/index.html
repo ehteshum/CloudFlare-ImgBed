@@ -10,6 +10,8 @@
 <meta name="description" content="Ishmam - A modern file hosting platform">
 <meta name="keywords" content="Ishmam, file hosting, image hosting, cloud storage">
 <meta name="author" content="SanyueQi">
+<meta name="theme-color" content="#020617">
+<link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
 <title>Ishmam</title>
 <script>
 tailwind = {
@@ -183,10 +185,24 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .el-upload-dragger { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; padding: 3rem !important; }
 .el-upload-dragger:hover { border-color: #f4b400 !important; transform: scale(1.01); background-color: rgba(15, 23, 42, 0.8) !important; }
 .el-upload__text em { color: #f4b400 !important; font-weight: 600; }
+
+/* 11. Performance & Crisp Rendering */
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+.el-overlay, .el-dialog, .el-dropdown-menu { will-change: transform, opacity; }
 </style>
 </head>
 <body>
 <noscript><strong>We're sorry but sanyue_imghub doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
-<div id="app"></div>
+<div id="app">
+  <style>
+    /* Inline preloader styling to show instantly before Vue mounts */
+    .app-preloader-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background-color: #020617; position: fixed; top: 0; left: 0; z-index: 9999; }
+    .app-preloader-spinner { width: 44px; height: 44px; border: 3px solid rgba(244, 180, 0, 0.1); border-top-color: #f4b400; border-radius: 50%; animation: preloader-spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    @keyframes preloader-spin { to { transform: rotate(360deg); } }
+  </style>
+  <div class="app-preloader-wrapper">
+    <div class="app-preloader-spinner"></div>
+  </div>
+</div>
 </body>
 </html>
