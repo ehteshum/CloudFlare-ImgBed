@@ -115,6 +115,9 @@ addClasses(".card-actions", ["border-t", "border-slate-800/50", "bg-slate-900"])
 addClasses(".el-card", ["rounded-2xl", "border-none", "bg-slate-900", "shadow-sm", "transition-all", "duration-300"]);
 addClasses(".el-dropdown-menu", ["overflow-hidden", "rounded-2xl", "border", "border-slate-800", "bg-slate-900", "shadow-md"]);
 addClasses(".el-dropdown-menu__item", ["px-3", "py-2", "text-sm", "text-slate-300", "font-medium", "transition-colors", "hover:bg-slate-800"]);
+addClasses(".el-dialog", ["rounded-2xl", "!bg-slate-900", "border", "border-slate-800", "shadow-2xl"]);
+addClasses(".el-dialog__title", ["text-slate-100", "font-medium"]);
+addClasses(".el-dialog__body", ["text-slate-300"]);
 addClasses(".el-button", ["rounded-xl", "border-none", "bg-slate-800", "text-slate-200", "font-medium", "hover:bg-slate-700", "focus:outline-none", "focus:ring-2", "focus:ring-[#f4b400]/50", "transition-all", "duration-300"]);
 addClasses(".el-button--primary", ["!bg-[#f4b400]", "!text-black", "shadow-sm", "font-medium", "hover:!bg-[#e0a600]"]);
 addClasses(".el-input__wrapper, .custom-select-trigger, .date-input", ["rounded-xl", "border-none", "bg-slate-950", "text-slate-100", "shadow-none", "ring-1", "ring-slate-800", "focus-within:ring-2", "focus-within:ring-[#f4b400]/50", "transition-all", "duration-300"]);
@@ -168,14 +171,26 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 ::-webkit-scrollbar-thumb:hover { background: oklch(0.38 0.02 85); }
 
 /* 5. Minimalist Empty States & Skeletons */
-.el-empty__description p { color: #94a3b8 !important; font-weight: 500; }
+.el-empty__description p { color: oklch(0.68 0.02 85) !important; font-weight: 500; }
 .el-loading-mask { background-color: oklch(0.15 0.012 85 / 0.7) !important; backdrop-filter: blur(4px); }
 .el-loading-spinner .path { stroke: #f4b400; }
 
-/* 6. Focused Login Form Layout */
+/* 6. Focused Login Form Layout & Interactions */
 .login-container .el-card { border: none !important; background: transparent !important; box-shadow: none !important; }
 .login-container .el-card__header { border-bottom: none; text-align: center; }
-.login-container .el-input__wrapper { background: oklch(0.20 0.015 85 / 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; }
+.login-container .el-input__wrapper { background: oklch(0.20 0.015 85 / 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; box-shadow: none !important; ring: none !important; }
+.login-container .el-input__wrapper.is-focus { outline: 2px solid rgba(244, 180, 0, 0.5) !important; outline-offset: 2px; }
+.el-input__inner::placeholder { color: oklch(0.58 0.02 85) !important; }
+
+/* 6.5 Interactive Polish & State Consistency */
+.el-button { transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, box-shadow 0.2s !important; }
+.el-button:not(.is-disabled):active { transform: scale(0.96) !important; }
+.el-button.is-disabled { opacity: 0.5 !important; cursor: not-allowed !important; transform: none !important; }
+.el-button:focus-visible, .el-checkbox__input.is-focus .el-checkbox__inner { outline: 2px solid #f4b400 !important; outline-offset: 2px !important; }
+.el-input__wrapper.is-focus, .el-select__wrapper.is-focus { outline: 2px solid rgba(244, 180, 0, 0.5) !important; outline-offset: 2px !important; box-shadow: none !important; }
+.el-form-item.is-error .el-input__wrapper { outline: 2px solid oklch(0.65 0.15 25 / 0.8) !important; background: oklch(0.65 0.15 25 / 0.05) !important; }
+.el-form-item__error { color: oklch(0.65 0.15 25) !important; font-weight: 500; }
+.el-message { border-radius: 12px !important; backdrop-filter: blur(12px); background: oklch(0.20 0.015 85 / 0.85) !important; border: 1px solid oklch(0.28 0.02 85 / 0.5) !important; color: oklch(0.95 0.01 85) !important; }
 
 /* 7. Modern Data Tables */
 .el-table { background: transparent !important; --el-table-border-color: transparent !important; --el-table-row-hover-bg-color: oklch(0.28 0.02 85 / 0.3) !important; --el-table-header-bg-color: oklch(0.20 0.015 85 / 0.8) !important; }
@@ -183,23 +198,33 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .el-table td.el-table__cell { border-bottom: 1px solid oklch(0.28 0.02 85 / 0.5) !important; color: oklch(0.95 0.01 85); padding: 16px 0 !important; }
 .el-table__inner-wrapper::before { display: none; } /* Removes the heavy bottom border of tables */
 .el-pagination { margin-top: 1.5rem; justify-content: flex-end; }
+.el-pagination.is-background .el-pager li:not(.is-disabled).is-active { background-color: #f4b400 !important; color: oklch(0.20 0.015 85) !important; font-weight: 600; }
+.el-pagination.is-background .el-pager li { background-color: transparent !important; color: oklch(0.68 0.02 85) !important; border-radius: 8px !important; }
+.el-pagination.is-background .el-pager li:hover { color: #f4b400 !important; }
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev { background-color: transparent !important; color: oklch(0.68 0.02 85) !important; }
 
 /* 8. Pill-shaped Sidebar Navigation */
 .el-menu { background: transparent !important; border-right: none !important; }
-.el-menu-item, .el-sub-menu__title { border-radius: 12px; margin: 4px 12px; color: #94a3b8 !important; transition: all 0.2s ease-out; }
+.el-menu-item, .el-sub-menu__title { border-radius: 12px; margin: 4px 12px; color: oklch(0.68 0.02 85) !important; transition: all 0.2s ease-out; }
 .el-menu-item.is-active { background: rgba(244, 180, 0, 0.1) !important; color: #f4b400 !important; font-weight: 600; }
 .el-menu-item:hover, .el-sub-menu__title:hover { background: oklch(0.28 0.02 85 / 0.6) !important; color: oklch(0.98 0.005 85) !important; }
 
 /* 9. Dashboard Typography Emphasis */
-.stat-value { font-size: 2.25rem !important; line-height: 2.5rem !important; font-weight: 700 !important; letter-spacing: -0.025em !important; color: #f8fafc !important; }
-.stat-title { font-size: 0.875rem !important; font-weight: 500 !important; color: #94a3b8 !important; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-value { font-size: 2.25rem !important; line-height: 2.5rem !important; font-weight: 700 !important; letter-spacing: -0.025em !important; color: oklch(0.98 0.005 85) !important; }
+.stat-title { font-size: 0.875rem !important; font-weight: 500 !important; color: oklch(0.68 0.02 85) !important; text-transform: uppercase; letter-spacing: 0.05em; }
 
 /* 10. Dashboard Animated Upload Area */
-.el-upload-dragger { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; padding: 3rem !important; }
+.el-upload-dragger { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, border-color 0.3s !important; padding: 3rem !important; }
 .el-upload-dragger:hover { border-color: #f4b400 !important; transform: scale(1.01); background-color: oklch(0.20 0.015 85 / 0.8) !important; }
 .el-upload__text em { color: #f4b400 !important; font-weight: 600; }
 
-/* 11. Performance & Crisp Rendering */
+/* 11. Global Dialogs & Overlays */
+.el-dialog, .el-message-box, .el-popover { background: oklch(0.20 0.015 85) !important; border: 1px solid oklch(0.28 0.02 85) !important; border-radius: 20px !important; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5) !important; }
+.el-dialog__title, .el-message-box__title { color: oklch(0.95 0.01 85) !important; font-weight: 600 !important; }
+.el-dialog__body, .el-message-box__content, .el-popover { color: oklch(0.78 0.02 85) !important; }
+.el-overlay { background-color: oklch(0.15 0.012 85 / 0.8) !important; backdrop-filter: blur(4px); }
+
+/* 12. Performance & Crisp Rendering */
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 .el-overlay, .el-dialog, .el-dropdown-menu { will-change: transform, opacity; }
 </style>
