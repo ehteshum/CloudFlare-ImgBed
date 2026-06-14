@@ -90,7 +90,7 @@ appRoot.classList.add("min-h-screen", "bg-slate-950", "text-slate-100");
 
 addClasses(".container", ["min-h-screen", "bg-slate-950", "text-slate-100", "font-sans"]);
 addClasses(".sidebar-container", ["border-r", "border-slate-800/50", "bg-slate-950", "backdrop-blur-none", "shadow-none"]);
-addClasses(".header-content", ["sticky", "top-0", "z-50", "border-b", "border-slate-800/50", "bg-slate-950/70", "backdrop-blur-xl", "shadow-sm", "transition-all"]);
+addClasses(".header-content", ["sticky", "top-0", "z-50", "border-b", "border-slate-800/50", "bg-slate-950", "shadow-sm"]);
 addClasses(".status-panel", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".upload-settings", ["mx-auto", "w-full", "max-w-[1600px]", "space-y-8", "p-8"]);
 addClasses(".overview-cards", ["grid", "gap-6", "sm:grid-cols-2", "xl:grid-cols-3"]);
@@ -128,7 +128,10 @@ removeDocs();
 removeThemeOption();
 
 const replaceCameraIcon = () => {
-document.querySelectorAll("svg").forEach((svg) => {
+// Only look at SVGs we haven't already inspected. Without this guard we
+// walk every icon on the page on every pass, which is wasteful.
+document.querySelectorAll("svg:not([data-icon-checked])").forEach((svg) => {
+svg.setAttribute("data-icon-checked", "");
 const path = svg.querySelector("path");
 if (path) {
 const d = path.getAttribute("d") || "";
@@ -168,16 +171,37 @@ toolbar.classList.add("navbar-integrated-toolbar");
 moveToolbar();
 };
 
-let frame = 0;
+// Debounced scheduler.
+// Previously this ran applyTailwindShell on every animation frame for every
+// DOM mutation, which meant ~40 full-page querySelectorAll scans (plus an
+// every-<svg> walk) dozens of times per second — the main cause of lag on
+// low-end devices. Now we wait for mutations to settle (SETTLE ms) before
+// doing one pass, and guarantee a pass at least every MAX_WAIT ms during
+// continuous churn. We also skip work entirely while the tab is hidden.
+const SETTLE = 150;
+const MAX_WAIT = 1000;
+let debounceTimer = 0;
+let firstRequest = 0;
+
+const run = () => {
+debounceTimer = 0;
+firstRequest = 0;
+if (document.hidden) { return; }
+applyTailwindShell();
+};
+
 const schedule = () => {
-cancelAnimationFrame(frame);
-frame = requestAnimationFrame(applyTailwindShell);
+const now = Date.now();
+if (!firstRequest) { firstRequest = now; }
+clearTimeout(debounceTimer);
+const wait = Math.min(SETTLE, Math.max(0, firstRequest + MAX_WAIT - now));
+debounceTimer = setTimeout(run, wait);
 };
 
 if (document.readyState === "loading") {
-document.addEventListener("DOMContentLoaded", schedule, { once: true });
+document.addEventListener("DOMContentLoaded", applyTailwindShell, { once: true });
 } else {
-schedule();
+applyTailwindShell();
 }
 
 window.addEventListener("load", schedule);
@@ -198,13 +222,13 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 
 /* 5. Minimalist Empty States & Skeletons */
 .el-empty__description p { color: oklch(0.68 0.02 85) !important; font-weight: 500; }
-.el-loading-mask { background-color: oklch(0.15 0.012 85 / 0.7) !important; backdrop-filter: blur(4px); }
+.el-loading-mask { background-color: oklch(0.15 0.012 85 / 0.85) !important; }
 .el-loading-spinner .path { stroke: #f4b400; }
 
 /* 6. Focused Login Form Layout & Interactions */
 .login-container .el-card { border: none !important; background: transparent !important; box-shadow: none !important; }
 .login-container .el-card__header { border-bottom: none; text-align: center; }
-.login-container .el-input__wrapper { background: oklch(0.20 0.015 85 / 0.5) !important; backdrop-filter: blur(12px); border-radius: 16px; box-shadow: none !important; ring: none !important; }
+.login-container .el-input__wrapper { background: oklch(0.20 0.015 85) !important; border-radius: 16px; box-shadow: none !important; ring: none !important; }
 .login-container .el-input__wrapper.is-focus { outline: 2px solid rgba(244, 180, 0, 0.5) !important; outline-offset: 2px; }
 .el-input__inner::placeholder { color: oklch(0.58 0.02 85) !important; }
 
@@ -216,7 +240,7 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .el-input__wrapper.is-focus, .el-select__wrapper.is-focus { outline: 2px solid rgba(244, 180, 0, 0.5) !important; outline-offset: 2px !important; box-shadow: none !important; }
 .el-form-item.is-error .el-input__wrapper { outline: 2px solid oklch(0.65 0.15 25 / 0.8) !important; background: oklch(0.65 0.15 25 / 0.05) !important; }
 .el-form-item__error { color: oklch(0.65 0.15 25) !important; font-weight: 500; }
-.el-message { border-radius: 12px !important; backdrop-filter: blur(12px); background: oklch(0.20 0.015 85 / 0.85) !important; border: 1px solid oklch(0.28 0.02 85 / 0.5) !important; color: oklch(0.95 0.01 85) !important; }
+.el-message { border-radius: 12px !important; background: oklch(0.22 0.015 85) !important; border: 1px solid oklch(0.28 0.02 85 / 0.5) !important; color: oklch(0.95 0.01 85) !important; }
 
 /* 7. Modern Data Tables */
 .el-table { background: transparent !important; --el-table-border-color: transparent !important; --el-table-row-hover-bg-color: oklch(0.28 0.02 85 / 0.3) !important; --el-table-header-bg-color: oklch(0.20 0.015 85 / 0.8) !important; }
@@ -248,7 +272,7 @@ new MutationObserver(schedule).observe(document.documentElement, { childList: tr
 .el-dialog, .el-message-box, .el-popover { background: oklch(0.20 0.015 85) !important; border: 1px solid oklch(0.28 0.02 85) !important; border-radius: 20px !important; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5) !important; }
 .el-dialog__title, .el-message-box__title { color: oklch(0.95 0.01 85) !important; font-weight: 600 !important; }
 .el-dialog__body, .el-message-box__content, .el-popover { color: oklch(0.78 0.02 85) !important; }
-.el-overlay { background-color: oklch(0.15 0.012 85 / 0.8) !important; backdrop-filter: blur(4px); }
+.el-overlay { background-color: oklch(0.12 0.012 85 / 0.85) !important; }
 
 /* 12. Performance & Crisp Rendering */
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }

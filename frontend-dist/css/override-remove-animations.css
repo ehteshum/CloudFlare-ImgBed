@@ -387,3 +387,175 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
   }
 }
 
+/* ============================================================
+   PERFORMANCE — kill backdrop-blur (GPU-heavy on low-end)
+   backdrop-filter: blur() forces a full-area recomposite every
+   frame the element is on screen. The sticky header re-blurs on
+   every scroll frame, which is the single biggest source of
+   scroll jank. Replace each blurred surface with a solid (or
+   near-solid) opaque background so it reads the same but costs
+   nothing to repaint.
+   ============================================================ */
+.header-content,
+.el-overlay,
+.el-dialog,
+.el-message,
+.el-message-box,
+.el-popover,
+.el-loading-mask,
+.login-container .el-input__wrapper {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Sticky header: opaque so content scrolling underneath doesn't
+   show through (blur previously hid it). */
+.header-content {
+  background-color: oklch(0.15 0.012 85) !important;
+}
+
+/* Dialogs / overlays / toasts: solid surfaces instead of translucent+blur */
+.el-overlay {
+  background-color: oklch(0.12 0.012 85 / 0.85) !important;
+}
+.el-dialog,
+.el-message-box {
+  background-color: oklch(0.20 0.015 85) !important;
+}
+.el-message {
+  background-color: oklch(0.22 0.015 85) !important;
+}
+.login-container .el-input__wrapper {
+  background-color: oklch(0.20 0.015 85) !important;
+}
+
+/* Drop will-change hints — keeping layers promoted permanently
+   wastes memory on low-end GPUs and can itself cause jank. */
+.el-overlay,
+.el-dialog,
+.el-dropdown-menu {
+  will-change: auto !important;
+}
+
+/* ============================================================
+   USABILITY POLISH — safe, layout-agnostic UX wins
+   These improve readability, touch ergonomics, and feedback
+   clarity without restructuring any view, so they're correct
+   regardless of the exact rendered layout.
+   ============================================================ */
+
+/* 1. Comfortable touch targets on phones/tablets.
+   Element-Plus default controls are ~32px tall — below the 44px
+   recommended minimum, which makes them fiddly to tap. */
+@media (max-width: 768px) {
+  .el-button,
+  .el-menu-item,
+  .el-sub-menu__title,
+  .el-pager li,
+  .btn-next,
+  .btn-prev,
+  .el-dropdown-menu__item {
+    min-height: 44px !important;
+  }
+  .el-button {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  /* Icon-only action buttons: keep them square and tappable. */
+  .el-button.is-circle,
+  .el-button [class*="el-icon"]:only-child {
+    min-width: 44px !important;
+  }
+}
+
+/* 2. Always-visible keyboard focus ring (accessibility / WCAG).
+   Mouse users never see it; keyboard users always do. */
+:focus-visible {
+  outline: 2px solid #f4b400 !important;
+  outline-offset: 2px !important;
+  border-radius: 6px;
+}
+
+/* 3. Clear, consistent disabled affordance everywhere. */
+.el-button.is-disabled,
+.el-input.is-disabled .el-input__wrapper,
+[disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* 4. Readable empty + loading states (less "is it broken?" doubt). */
+.el-empty {
+  padding: 48px 16px !important;
+}
+.el-empty__description p,
+.el-empty__description {
+  font-size: 0.95rem !important;
+  color: oklch(0.72 0.02 85) !important;
+}
+
+/* 5. More inviting, legible upload dropzone.
+   Bigger call-to-action text and an obvious hover/active state so
+   it reads as "drop files here" at a glance. */
+.el-upload-dragger:hover,
+.el-upload-dragger.is-dragover {
+  border-color: #f4b400 !important;
+  background: oklch(0.22 0.015 85) !important;
+}
+.el-upload__text {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+.el-upload__tip {
+  color: oklch(0.62 0.02 85) !important;
+  font-size: 0.8rem !important;
+  margin-top: 8px !important;
+}
+
+/* 6. Table rows: roomier and clearly separated for scannability. */
+.el-table td.el-table__cell {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+.el-table__row:hover > td.el-table__cell {
+  background: oklch(0.24 0.02 85 / 0.45) !important;
+}
+
+/* 7. Truncate long file names with an ellipsis instead of wrapping
+   into multi-line rows that wreck table rhythm. */
+.el-table .cell {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 8. Sidebar active item: stronger, unmistakable selected state. */
+.el-menu-item.is-active {
+  background: rgba(244, 180, 0, 0.12) !important;
+  color: #f4b400 !important;
+  font-weight: 600 !important;
+  box-shadow: inset 3px 0 0 #f4b400 !important;
+}
+
+/* 9. Inputs: comfortable height + readable text on mobile (also
+   prevents iOS auto-zoom on focus, which happens below 16px). */
+.el-input__inner,
+.el-textarea__inner {
+  font-size: 16px !important;
+}
+@media (min-width: 769px) {
+  .el-input__inner,
+  .el-textarea__inner {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* 10. Copy-link / success feedback: make confirmation toasts pop so
+   users are sure their action worked. */
+.el-message--success {
+  border-left: 3px solid #4ade80 !important;
+}
+.el-message__content {
+  font-weight: 500 !important;
+}
+
