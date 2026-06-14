@@ -560,12 +560,16 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
 }
 
 /* ============================================================
-   LOGIN PAGE — align with the app's flat amber + Inter theme
+   LOGIN PAGE — align with the app's flat amber + Inter theme,
+   and fix layout / spacing / structure.
    The login view ships its own blue theme (#5b9bd3 / #487cb0),
    a "Righteous" display font, a blue text-glow, blur, and a
    hover-lift/scale animation — none of which match the rest of
-   the UI. We remap its CSS variables to amber and neutralize the
-   mismatched font/blur/motion. Minimal: no layout restructuring.
+   the UI. Its structure is also off: a 600px card with no
+   horizontal padding, inputs at 80% width but the submit button
+   at 50%, and per-element shimmer/lift effects. We remap the
+   tokens to amber, neutralize the mismatched motion, and rebuild
+   a consistent single-column form with even spacing.
    ============================================================ */
 
 /* Remap the login design tokens to the app's palette. */
@@ -623,5 +627,87 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
 }
 .login .submit:disabled {
   opacity: 0.5 !important;
+}
+
+/* ── Layout / spacing / structure ──────────────────────────── */
+
+/* Card: sane width with real horizontal padding, so every child
+   can share one consistent content width instead of relying on
+   mismatched percentages. */
+.login-container {
+  width: 100% !important;
+  max-width: 420px !important;
+  box-sizing: border-box !important;
+  padding: 40px 36px !important;
+  gap: 18px !important;
+}
+@media (max-width: 768px) {
+  .login-container {
+    max-width: none !important;
+    width: calc(100vw - 32px) !important;
+    padding: 28px 22px !important;
+    gap: 14px !important;
+  }
+}
+
+/* Title: tighter rhythm with the form below it. */
+.login-title {
+  margin-bottom: 8px !important;
+}
+
+/* Every form row shares the full content width — inputs and the
+   button line up flush instead of 80% vs 50%. */
+.login-container .input-container {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  gap: 6px !important;
+}
+
+/* Submit button: full width, same as the inputs above it. */
+.login .submit,
+.login-container .submit {
+  width: 100% !important;
+  margin-top: 4px !important;
+  margin-bottom: 0 !important;
+  height: 46px !important;
+  border-radius: 10px !important;
+  font-size: 1rem !important;
+}
+@media (max-width: 768px) {
+  .login .submit,
+  .login-container .submit {
+    width: 100% !important;
+  }
+}
+
+/* Inputs: flat, no shimmer-sweep / hover-lift / heavy shadow —
+   just a clean field with an amber focus ring, matching the rest
+   of the app's inputs. */
+.password-input .el-input__wrapper {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  border: 1px solid oklch(0.30 0.02 85) !important;
+  background-color: oklch(0.15 0.012 85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.2s ease !important;
+}
+.password-input .el-input__wrapper:before {
+  display: none !important; /* kill the shimmer sweep */
+}
+.password-input .el-input__wrapper:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: oklch(0.40 0.02 85) !important;
+}
+.password-input .el-input__wrapper:focus-within {
+  transform: none !important;
+  border-color: #f4b400 !important;
+  box-shadow: 0 0 0 3px rgba(244, 180, 0, 0.15) !important;
+}
+
+/* Loading spinner: amber to match the brand. */
+.loading-ring {
+  border-top-color: #f4b400 !important;
 }
 
