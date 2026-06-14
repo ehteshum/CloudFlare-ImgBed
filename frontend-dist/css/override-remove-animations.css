@@ -559,3 +559,69 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
   font-weight: 500 !important;
 }
 
+/* ============================================================
+   LOGIN PAGE — align with the app's flat amber + Inter theme
+   The login view ships its own blue theme (#5b9bd3 / #487cb0),
+   a "Righteous" display font, a blue text-glow, blur, and a
+   hover-lift/scale animation — none of which match the rest of
+   the UI. We remap its CSS variables to amber and neutralize the
+   mismatched font/blur/motion. Minimal: no layout restructuring.
+   ============================================================ */
+
+/* Remap the login design tokens to the app's palette. */
+:root {
+  --login-title-color: oklch(0.98 0.005 85) !important;
+  --login-title-glow-color: transparent !important;
+  --login-input-label-focus-color: #f4b400 !important;
+  --login-input-underline-color: #f4b400 !important;
+  --login-input-underline-secondary-color: #f4b400 !important;
+  --login-submit-btn-bg-color: #f4b400 !important;
+  --login-container-bg-color: oklch(0.18 0.015 85) !important;
+  --login-container-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  --login-container-hover-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Title: use the app font (Inter), drop the glow + hover transform. */
+.login-title {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: none !important;
+}
+.login-title:hover,
+.login-title:focus {
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+/* Card: flat, no blur, no hover-lift — consistent with other cards. */
+.login-container {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid oklch(0.28 0.02 85) !important;
+  transition: none !important;
+}
+.login-container:hover {
+  transform: none !important;
+  box-shadow: var(--login-container-box-shadow) !important;
+}
+
+/* Submit button: solid amber with black text, no lift/scale. */
+.login .submit,
+.login-container .submit {
+  background-color: #f4b400 !important;
+  color: #000 !important;
+  font-family: 'Inter', sans-serif !important;
+  letter-spacing: 0 !important;
+  transition: background-color 0.2s ease !important;
+}
+.login .submit:not(.is-loading):hover,
+.login .submit:not(.is-loading):focus {
+  transform: none !important;
+  box-shadow: none !important;
+  background-color: #e0a600 !important;
+}
+.login .submit:disabled {
+  opacity: 0.5 !important;
+}
+
