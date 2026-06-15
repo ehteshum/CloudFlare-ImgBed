@@ -52,12 +52,14 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 
-/* Global override: remove heavy animations and force black background */
+/* Global override: remove heavy animations; page sits on the
+   lowest surface token so the elevation ladder (0→1→2→3) reads as
+   real depth instead of cards floating on harsh pure black. */
 :root, html, body, #app {
-  background: #000 !important;
+  background: var(--surface-0) !important;
   background-image: none !important;
   min-height: 100vh;
-  color: #fff !important;
+  color: var(--text-1) !important;
 }
 
 /* Hide any injected background image elements used by the app */
@@ -124,10 +126,6 @@ img, video {
   margin: 0 16px !important;
 }
 
-.el-header .header-content:hover {
-
-}
-
 .el-header .search-area {
   margin-left: 0 !important;
 }
@@ -141,10 +139,6 @@ img, video {
   max-width: none !important;
   margin: 0 !important;
   box-sizing: border-box;
-}
-
-.header-content[data-v-7607b77d]:hover {
-
 }
 
 .sidebar-container[data-v-2718059d] {
@@ -519,7 +513,7 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
 :focus-visible {
   outline: 2px solid var(--brand) !important;
   outline-offset: 2px !important;
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 
 /* 3. Clear, consistent disabled affordance everywhere. */
@@ -564,7 +558,7 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
   padding-bottom: 14px !important;
 }
 .el-table__row:hover > td.el-table__cell {
-  background: oklch(0.24 0.02 85 / 0.45) !important;
+  background: var(--surface-3) !important;
 }
 
 /* 7. Truncate long file names with an ellipsis instead of wrapping
@@ -837,5 +831,57 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
 .el-button--primary:focus {
   background-color: var(--brand-hover) !important;
   border-color: var(--brand-hover) !important;
+}
+
+/* ============================================================
+   INTERACTION FEEDBACK — cheap, repaint-free hover affordances.
+   The global `*:hover` rule strips box-shadow/filter to avoid
+   blur/shadow repaints, which also removed every "this is
+   clickable" cue. Re-add feedback using ONLY background-color and
+   border-color (no shadow, no blur, no transform) so it costs
+   nothing to paint but the UI feels responsive again.
+   ============================================================ */
+
+/* Give cards a defined edge — reads cleanly now that the page sits
+   on --surface-0 — and a hover target to strengthen. */
+.overview-card,
+.chart-card,
+.action-card,
+.file-info-card,
+.channel-card,
+.el-card,
+.main-table {
+  border: 1px solid var(--border) !important;
+  transition: border-color var(--transition),
+              background-color var(--transition) !important;
+}
+.overview-card:hover,
+.chart-card:hover,
+.action-card:hover,
+.file-info-card:hover,
+.channel-card:hover,
+.el-card:hover {
+  border-color: var(--border-strong) !important;
+}
+
+/* Secondary buttons: lift the surface a step on hover. */
+.el-button:not(.is-disabled):not(.el-button--primary):hover {
+  background-color: var(--surface-3) !important;
+  border-color: var(--border-strong) !important;
+}
+
+/* Dropdown / inactive menu items: clear hover surface + brighter text. */
+.el-dropdown-menu__item:not(.is-disabled):hover,
+.el-menu-item:not(.is-active):hover,
+.el-sub-menu__title:hover {
+  background-color: var(--surface-3) !important;
+  color: var(--text-1) !important;
+}
+
+/* Pagination controls: same hover surface as the other controls. */
+.el-pager li:not(.is-active):hover,
+.btn-next:not(:disabled):hover,
+.btn-prev:not(:disabled):hover {
+  background-color: var(--surface-3) !important;
 }
 
