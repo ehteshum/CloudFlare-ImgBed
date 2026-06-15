@@ -340,6 +340,102 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-fo
   pointer-events: auto !important;
 }
 
+/* ============================================================
+   13.5  MENU AS A CLEAN DROPDOWN PANEL
+   The bars button used to reveal a column of floating, label-less
+   round icon buttons. Wrap them in ONE solid menu card and turn
+   each control into a full-width row: icon left, label beside it.
+   `:has(.active)` means the panel only materialises while the menu
+   is actually open — when closed there's no empty floating card.
+   ============================================================ */
+.navbar-integrated-toolbar:has(.active) {
+  align-items: stretch !important;
+  gap: 2px !important;
+  padding: 6px !important;
+  min-width: 224px !important;
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-overlay) !important;
+  pointer-events: auto !important;
+  z-index: 2000 !important;
+}
+
+/* Each control becomes a left-aligned, full-width row. */
+.navbar-integrated-toolbar:has(.active) .toolbar-button,
+.navbar-integrated-toolbar:has(.active) .upload-method-button,
+.navbar-integrated-toolbar:has(.active) .more-dropdown,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--text-1) !important;
+}
+
+.navbar-integrated-toolbar:has(.active) .toolbar-button:hover,
+.navbar-integrated-toolbar:has(.active) .upload-method-button:hover,
+.navbar-integrated-toolbar:has(.active) .more-dropdown:hover,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown:hover {
+  background: var(--surface-3) !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Icons: uniform size, muted, fixed on the left. */
+.navbar-integrated-toolbar:has(.active) .toolbar-button svg,
+.navbar-integrated-toolbar:has(.active) .upload-method-button svg,
+.navbar-integrated-toolbar:has(.active) .more-dropdown svg,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown svg {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  color: var(--text-2) !important;
+  margin: 0 !important;
+}
+
+/* Strip the inner trigger of the more-dropdown so only its icon
+   shows (the row itself supplies the surface + label). */
+.navbar-integrated-toolbar:has(.active) .more-dropdown > *,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown > * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Labels — injected because these controls are icon-only.
+   The app is English-only (language toggles are hidden), so fixed
+   strings are safe and stay consistent with the tooltips. */
+.navbar-integrated-toolbar:has(.active) .compress-button::after { content: "Settings"; }
+.navbar-integrated-toolbar:has(.active) .config-button::after { content: "Manage"; }
+.navbar-integrated-toolbar:has(.active) .link-button::after { content: "Link Format"; }
+.navbar-integrated-toolbar:has(.active) .sign-out-button::after { content: "Log Out"; }
+.navbar-integrated-toolbar:has(.active) .upload-method-button::after { content: "Upload Method"; }
+.navbar-integrated-toolbar:has(.active) .more-dropdown::after,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown::after { content: "More"; }
+
+.navbar-integrated-toolbar:has(.active) .toolbar-button::after,
+.navbar-integrated-toolbar:has(.active) .upload-method-button::after,
+.navbar-integrated-toolbar:has(.active) .more-dropdown::after,
+.navbar-integrated-toolbar:has(.active) .mobile-more-dropdown::after {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-1);
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
 /* 14. Hide Upload Folder Container */
 .upload-folder-container {
   display: none !important;
