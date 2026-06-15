@@ -23,6 +23,16 @@ export async function onRequest(context) {  // Contents of context object
         data, // arbitrary space for passing data between middlewares
     } = context;
 
+    // 裸 /file（无文件ID）不是图片请求——人手动访问时重定向到后台登录页，
+    // 而不是返回占位图片。真正的公开图片链接 /file/<id> 不受影响。
+    // 直接看 URL pathname：catch-all 在裸路径下可能把 params.path 设为
+    // undefined / "" / "undefined"，所以不能依赖它，必须看真实路径。
+    const reqUrl = new URL(request.url);
+    const pathAfterFile = reqUrl.pathname.replace(/^\/file\/?/, '');
+    if (pathAfterFile === '') {
+        return Response.redirect(reqUrl.origin + '/adminLogin', 302);
+    }
+
     // 解码文件ID
     let fileId = '';
     try {
@@ -30,13 +40,6 @@ export async function onRequest(context) {  // Contents of context object
         fileId = params.path.split(',').join('/');
     } catch (e) {
         return new Response('Error: Decode Image ID Failed', { status: 400 });
-    }
-
-    // 裸 /file（无文件ID）不是图片请求——人手动访问时重定向到后台登录页，
-    // 而不是返回占位图片。真正的公开图片链接 /file/<id> 不受影响。
-    if (!fileId) {
-        const origin = new URL(request.url).origin;
-        return Response.redirect(origin + '/adminLogin', 302);
     }
 
     // 读取安全配置，解析必要参数
