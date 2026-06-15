@@ -834,6 +834,91 @@ li.el-dropdown-menu__item:has(svg[data-icon="adjust"], svg.fa-adjust) {
 }
 
 /* ============================================================
+   UPLOAD PROGRESS UI — the uploading experience.
+   The custom upload-list component (data-v-4848c2b0) ships a blue
+   glassmorphism look: rgba(64,158,255) gradients, backdrop blur, a
+   translateY hover-lift, and soft multi-layer shadows — all of
+   which clash with the flat amber theme AND re-introduce the blur/
+   shadow repaints the perf pass removed. Element-Plus's progress
+   bar also defaults to blue. Flatten every uploading-state surface
+   to the token system and recolor progress to the brand.
+   ============================================================ */
+
+/* Each uploading row: flat card on --surface-1, no blur, no lift. */
+.upload-list-item {
+  background: var(--surface-1) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-card) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color var(--transition) !important;
+}
+.upload-list-item:hover {
+  border-color: var(--border-strong) !important;
+  box-shadow: var(--shadow-card) !important;
+  transform: none !important;
+}
+
+/* File-name chip: drop the blue gradient + blur for a flat surface. */
+.upload-list-item-name-wrapper {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+}
+.upload-list-item-name-wrapper:hover {
+  background: var(--surface-3) !important;
+  border-color: var(--border-strong) !important;
+}
+.upload-list-item-name {
+  color: var(--text-1) !important;
+}
+
+/* Progress bar track + fill: brand amber instead of Element blue. */
+.el-progress-bar__outer {
+  background-color: var(--surface-3) !important;
+  border-radius: var(--radius) !important;
+}
+.el-progress-bar__inner {
+  background-color: var(--brand) !important;
+  background-image: none !important;
+  border-radius: var(--radius) !important;
+}
+.el-progress__text {
+  color: var(--text-2) !important;
+  font-weight: 600 !important;
+}
+
+/* Terminal states: clear success (green) / error (red) signalling. */
+.el-progress.is-success .el-progress-bar__inner {
+  background-color: #4ade80 !important;
+}
+.el-progress.is-success .el-progress__text {
+  color: #4ade80 !important;
+}
+.el-progress.is-exception .el-progress-bar__inner {
+  background-color: oklch(0.65 0.15 25) !important;
+}
+.el-progress.is-exception .el-progress__text {
+  color: oklch(0.65 0.15 25) !important;
+}
+
+/* Dragger while uploading: amber border so the zone reads "busy". */
+.el-upload-dragger.is-uploading {
+  border-color: var(--brand) !important;
+  background: var(--surface-2) !important;
+}
+
+/* Status icon (the success/fail check on each finished row). */
+.el-upload-list__item-status-label,
+.upload-list-item .el-icon.is-loading {
+  color: var(--brand) !important;
+}
+
+/* ============================================================
    INTERACTION FEEDBACK — cheap, repaint-free hover affordances.
    The global `*:hover` rule strips box-shadow/filter to avoid
    blur/shadow repaints, which also removed every "this is

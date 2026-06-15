@@ -32,6 +32,13 @@ export async function onRequest(context) {  // Contents of context object
         return new Response('Error: Decode Image ID Failed', { status: 400 });
     }
 
+    // 裸 /file（无文件ID）不是图片请求——人手动访问时重定向到后台登录页，
+    // 而不是返回占位图片。真正的公开图片链接 /file/<id> 不受影响。
+    if (!fileId) {
+        const origin = new URL(request.url).origin;
+        return Response.redirect(origin + '/adminLogin', 302);
+    }
+
     // 读取安全配置，解析必要参数
     const securityConfig = await fetchSecurityConfig(env);
     context.securityConfig = securityConfig;
